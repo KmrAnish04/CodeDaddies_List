@@ -1,12 +1,85 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codedaddies List</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
-    <h2>Codedaddies Lists by Anish</h2>
+
+    <nav class="blue" >
+        <div class="container nav-wrapper">
+            <a href="/" class="brand-logo">Codedaddies List</a>
+            <ul id="nav-mobile" class="right">
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+<div class="container">
+    <h1 style="text-align: center;">Search Anything, You Want!</h1>
+    <div class="row">
+        <div class="col s4">
+            <div class="center">
+                <i class="material-icons large " style="color: #2196f3 " >flash_on</i>
+                <p>Fast Web scrapper</p>
+                <p class="light center">Scrape away right here with a beautiful GUI.</p>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="center">
+                <i class="material-icons large" style="color: #2196f3;">camera</i>
+                <p>Filter your searches here</p>
+                <p class="light centerd">Filter based on pricing</p>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="center">
+                <i class="material-icons large" style="color: #2196f3;">chrome_reader_mode</i>
+                <p>A much sexier front-end to website</p>
+                <p class="light centerd">We built this with 🖤</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="row">
+        <form action="{% url 'new_search' %}" method="post" class="col s12">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                <label for="textarea1">Search here...</label>
+                <button class="btn waves-effect blue" type="submit" name="action">Search
+                    <i class="material-icons right">search</i>
+                  </button>
+                </div>
+            </div>
+        </form>
+      </div> -->
+
+      <form action="{% url 'new_search' %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="search" id="search_bar" placeholder="Search here..." class="materialize-input">
+          <button class="btn waves-effect blue" type="submit" name="action">Search
+            <i class="material-icons right">search</i>
+          </button>
+      </form>
+
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </body>
 </html>
