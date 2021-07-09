@@ -21,21 +21,23 @@ def new_search(request):
 
     post_listings = soup.find_all('li', {'class': 'result-row'})
 
-    post_title = post_listings[0].find(class_='result-title').text
-    post_url = post_listings[0].find('a').get('href')
-    post_price = post_listings[0].find(class_='result-price')
-    # post_price = post_listings[0].find(class_='result-price').text
-    # from cragslist there is not any price available for the result in chandigarh locality, thats why its giving 'none' as result and thats why we can't convert none to text.
-    
-    print(post_title)
-    print(post_url)
-    print(post_price)
+    # post_title = post_listings[0].find(class_='result-title').text
+    # post_url = post_listings[0].find('a').get('href')
+
+    # if post_listings.find(class_='result-price'):
+    #     post_price = post_listings[0].find(class_='result-price').text
+    # else:
+    #     post_price = 'N/A'
 
     final_postings = []
     for post in final_postings:
         post_title = post.find(class_='result-title').text
         post_url = post.find('a').get('href')
-        post_price = post.find(class_='result-price')
+        if post_listings.find(class_='result-price'):
+            post_price = post_listings[0].find(class_='result-price').text
+        else:
+            post_price = 'N/A'
+
 
         final_postings.append(post_title, post_url, post_price)
         
