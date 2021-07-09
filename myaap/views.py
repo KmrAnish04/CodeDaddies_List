@@ -7,6 +7,7 @@ from . import models
 # Create your views here.
 
 BASE_WEB_URL = 'https://chandigarh.craigslist.org/search/lss?query={}'
+BASE_IMG_URL ='https://images.craigslist.org/{}_300x300.jpg'
 
 def home(request):
     return render(request, 'base.html')
