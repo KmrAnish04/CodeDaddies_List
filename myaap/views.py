@@ -43,8 +43,15 @@ def new_search(request):
         else:
             post_price = 'N/A'
 
+        if post.find(class_='result-image').get('data-ids'):
+            post_img_id = post.find(class_= 'result-image').get('data-ids').split(',')[0].split(':')[1]
+            post_img_url = BASE_IMG_URL.format(post_img_id)
+            print(post_img_url)
+        else:
+            post_img_url = 'https://craigslist.org/images/peace.jpg'
+            
 
-        final_postings.append((post_title, post_url, post_price))
+        final_postings.append((post_title, post_url, post_price,post_img_url))
         
 
     search_result = {
@@ -52,6 +59,6 @@ def new_search(request):
         'final_postings': final_postings,
     }
     
-    print(search_result['final_postings'])
+    # print(search_result['final_postings'])
         
     return render(request, 'myaap/new_search.html', search_result)
