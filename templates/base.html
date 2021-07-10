@@ -14,7 +14,7 @@
 
     <nav class="blue" >
         <div class="container nav-wrapper">
-            <a href="/" class="brand-logo">Codedaddies List</a>
+            <a href="/" class="brand-logo">Desi Craigslist</a>
             <ul id="nav-mobile" class="right">
                 <li><a href="/">Home</a></li>
             </ul>
@@ -50,28 +50,29 @@
 
     </div>
 
-    <!-- <div class="row">
-        <form action="{% url 'new_search' %}" method="post" class="col s12">
-            {% csrf_token %}
-            <div class="row">
-                <div class="input-field col s12">
-                <textarea id="textarea1" class="materialize-textarea"></textarea>
-                <label for="textarea1">Search here...</label>
-                <button class="btn waves-effect blue" type="submit" name="action">Search
-                    <i class="material-icons right">search</i>
-                  </button>
-                </div>
-            </div>
-        </form>
-      </div> -->
-
       <form action="{% url 'new_search' %}" method="post">
           {% csrf_token %}
           <input type="text" name="search" id="search_bar" placeholder="Search here..." class="materialize-input">
+
+          <label style="color: #2196f3;"><p>--Select Category--</p></label>
+          <select name="category" class="browser-default" style="width: min-content; height:min-content">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="ccc">community</option>
+              <option value="eee">events</option>
+              <option value="sss">for sale</option>
+              <option value="ggg">gigs</option>
+              <option value="hhh">housing</option>
+              <option value="jjj">jobs</option>
+              <option value="rrr">resume</option>
+              <option value="bbb">services</option>
+          </select>
+          <br>
           <button class="btn waves-effect blue" type="submit" name="action">Search
             <i class="material-icons right">search</i>
           </button>
+          
       </form>
+      
 
     {% block content %}
 
