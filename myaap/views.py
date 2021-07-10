@@ -6,7 +6,8 @@ from requests.compat import quote_plus
 from . import models
 # Create your views here.
 
-BASE_WEB_URL = 'https://chandigarh.craigslist.org/search/lss?query={}'
+BASE_WEB_URL = 'https://chandigarh.craigslist.org/search/{}?query={}'
+# BASE_EX_URL = 'https://chandigarh.craigslist.org/search/{}?query={}'
 BASE_IMG_URL ='https://images.craigslist.org/{}_300x300.jpg'
 
 def home(request):
@@ -14,11 +15,22 @@ def home(request):
 
 def new_search(request):
     search = request.POST.get('search')
+    # print(request.POST.get('category'))
+    if request.POST.get('category'):
+        category = request.POST.get('category')
+    else:
+        category = 'bbb'
+
     models.Search.objects.create(Search=search)
-    final_url = BASE_WEB_URL.format(quote_plus(search))
+    models.Search.objects.create(category=category)
+
+    final_url = BASE_WEB_URL.format(category,quote_plus(search))
+    print(category)
+    print(final_url)
+
     response = requests.get(final_url)
     data = response.text
-    # print(data)
+    
     soup = BeautifulSoup(data, features='html.parser')
 
     post_listings = soup.find_all('li', {'class': 'result-row'})
@@ -46,7 +58,7 @@ def new_search(request):
         if post.find(class_='result-image').get('data-ids'):
             post_img_id = post.find(class_= 'result-image').get('data-ids').split(',')[0].split(':')[1]
             post_img_url = BASE_IMG_URL.format(post_img_id)
-            print(post_img_url)
+            
         else:
             post_img_url = 'https://craigslist.org/images/peace.jpg'
             
