@@ -1,13 +1,13 @@
 from django.shortcuts import render
-# from requests.api import post
 from bs4 import BeautifulSoup
 import requests
 from requests.compat import quote_plus
 from . import models
+
+
 # Create your views here.
 
 BASE_WEB_URL = 'https://chandigarh.craigslist.org/search/{}?query={}'
-# BASE_EX_URL = 'https://chandigarh.craigslist.org/search/{}?query={}'
 BASE_IMG_URL ='https://images.craigslist.org/{}_300x300.jpg'
 
 def home(request):
@@ -15,14 +15,13 @@ def home(request):
 
 def new_search(request):
     search = request.POST.get('search')
-    # print(request.POST.get('category'))
+    category = 'bbb'
     if request.POST.get('category'):
         category = request.POST.get('category')
     else:
         category = 'bbb'
 
-    models.Search.objects.create(Search=search)
-    models.Search.objects.create(category=category)
+    models.Search.objects.create(Search=search, Category=category)
 
     final_url = BASE_WEB_URL.format(category,quote_plus(search))
     print(category)
@@ -34,14 +33,6 @@ def new_search(request):
     soup = BeautifulSoup(data, features='html.parser')
 
     post_listings = soup.find_all('li', {'class': 'result-row'})
-
-    # post_title = post_listings[0].find(class_='result-title').text
-    # post_url = post_listings[0].find('a').get('href')
-
-    # if post_listings.find(class_='result-price'):
-    #     post_price = post_listings[0].find(class_='result-price').text
-    # else:
-    #     post_price = 'N/A'
 
     final_postings = []
 
@@ -70,7 +61,5 @@ def new_search(request):
         'search': search,
         'final_postings': final_postings,
     }
-    
-    # print(search_result['final_postings'])
         
     return render(request, 'myaap/new_search.html', search_result)
